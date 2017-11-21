@@ -1,5 +1,7 @@
 package view;
 
+import view.courbe.TraceurCourbes;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,30 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JSeparator;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class View extends JFrame {
 
     private JPanel contentPane;
-
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    View frame = new View();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Create the frame.
-     */
     public View() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 512, 320);
@@ -47,6 +31,7 @@ public class View extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
         this.setTitle("Pimp My Fridge");
+        this.setVisible(true);
 
         // LABEL TITLE
         JLabel lbl_Title = new JLabel("FRIDGE MANAGER");
@@ -119,6 +104,17 @@ public class View extends JFrame {
         spinner_TempTarget.setModel(new SpinnerNumberModel(new Integer(10), null, null, new Integer(1)));
         spinner_TempTarget.setFont(new Font("Roboto", Font.PLAIN, 12));
         spinner_TempTarget.setBounds(406, 150, 40, 20);
+        spinner_TempTarget.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int val = (int)spinner_TempTarget.getValue();
+                if (val == 15) {
+                    lbl_Statut.setText("valeur 15");
+                } else {
+                    lbl_Statut.setText("valeur pas 15");
+                }
+            }
+        });
         contentPane.add(spinner_TempTarget);
 
         // SEPARATEUR
@@ -132,6 +128,7 @@ public class View extends JFrame {
         JButton btn_SetTarget = new JButton("ASSIGNER LA CONSIGNE");
         btn_SetTarget.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                lbl_Statut.setText("consigne assignée");
             }
         });
         btn_SetTarget.setForeground(Color.WHITE);
@@ -147,17 +144,12 @@ public class View extends JFrame {
         btn_Stop.setBackground(Color.BLACK);
         btn_Stop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                lbl_Statut.setText("arrêté");
             }
         });
         btn_Stop.setBounds(66, 205, 80, 40);
         contentPane.add(btn_Stop);
 
-        btn_Stop.addActionListener( new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lbl_Statut.setText("clicked");
-            }
-        });
-
+        TraceurCourbes courbe = new TraceurCourbes();
     }
 }
