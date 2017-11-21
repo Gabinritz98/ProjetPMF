@@ -1,16 +1,14 @@
-package space.toolreaz.controller;
+package controller;
 
-import space.toolreaz.IObservableMV;
-import space.toolreaz.IObserverMV;
-import space.toolreaz.model.Model;
-import space.toolreaz.view.View;
+import model.Model;
+import view.View;
 
 public class Controller {
 
     private static Controller controllerInstance;
     private View view;
     private Model model;
-    
+
     public static Controller getControllerInstance() {
         if(controllerInstance == null) {
             controllerInstance = new Controller();

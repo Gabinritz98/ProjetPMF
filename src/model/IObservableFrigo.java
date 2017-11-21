@@ -1,4 +1,4 @@
-package space.toolreaz.model;
+package model;
 
 public interface IObservableFrigo {
 	public void SetListenerFrigo(IObserverFrigo observer);
