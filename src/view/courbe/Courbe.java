@@ -45,10 +45,12 @@ public class Courbe extends JPanel {
     public void paint(Graphics g){
         super.paint(g);
 
-        this.largeur=this.getWidth()-20;
-        this.hauteur=this.getHeight()-20;
-        this.left=10;
-        this.top=10;
+        g.drawString("Température", 40,20);
+        g.drawString("Temps", 40, getHeight()-20);
+        this.largeur=this.getWidth()-80;
+        this.hauteur=this.getHeight()-80;
+        this.left=40;
+        this.top=40;
 
         g.setColor(Color.WHITE);
         g.fillRect(this.left, this.top, this.largeur, this.hauteur);
@@ -59,8 +61,7 @@ public class Courbe extends JPanel {
             int y=this.top+(this.hauteur/2);
             g.drawLine(x-2, y, x+2, y);
             g.drawLine(x, y-2, x, y+2);
-        }
-        else{
+        } else {
             for(int i=0; i<this.listePoints.size()-1; i++){
                 Point p1=this.convertirPointSurReferenciel(this.listePoints.get(i));
                 Point p2=this.convertirPointSurReferenciel(this.listePoints.get(i+1));

@@ -22,6 +22,16 @@ import javax.swing.event.ChangeListener;
 public class View extends JFrame {
 
     private JPanel contentPane;
+    private int consigne = 0;
+
+    public void setConsigne(int consigne) {
+        this.consigne = consigne;
+    }
+
+    public int getConsigne() {
+        return consigne;
+    }
+
     public View() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 512, 320);
@@ -108,6 +118,7 @@ public class View extends JFrame {
             @Override
             public void stateChanged(ChangeEvent e) {
                 int val = (int)spinner_TempTarget.getValue();
+                setConsigne(val);
                 if (val == 15) {
                     lbl_Statut.setText("valeur 15");
                 } else {
@@ -149,7 +160,5 @@ public class View extends JFrame {
         });
         btn_Stop.setBounds(66, 205, 80, 40);
         contentPane.add(btn_Stop);
-
-        TraceurCourbes courbe = new TraceurCourbes();
     }
 }
