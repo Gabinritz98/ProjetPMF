@@ -1,10 +1,10 @@
-package space.toolreaz.model;
+package common.model;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import space.toolreaz.Packet;
-import space.toolreaz.controller.Communication;
+import common.Packet;
+import common.controller.Communication;
 
 public class Trigger {
 	Timer t;

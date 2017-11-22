@@ -1,9 +1,9 @@
-package space.toolreaz.model;
+package common.model;
 
 import java.util.ArrayList;
 
-import space.toolreaz.IObservableMV;
-import space.toolreaz.IObserverMV;
+import common.IObservableMV;
+import common.IObserverMV;
 
 public class Model implements IObservableMV, IObserverFrigo, IModel {
 	

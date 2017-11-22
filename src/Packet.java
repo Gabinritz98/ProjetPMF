@@ -1,4 +1,4 @@
-package space.toolreaz;
+package common;
 
 public class Packet {
 	private int TempInterne,TempExterne,Consigne,Hygro;

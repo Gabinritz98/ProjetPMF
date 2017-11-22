@@ -1,9 +1,7 @@
-package space.toolreaz.controller;
+package common.controller;
 
-import space.toolreaz.IObservableMV;
-import space.toolreaz.IObserverMV;
-import space.toolreaz.model.Model;
-import space.toolreaz.view.View;
+import common.model.Model;
+import common.view.View;
 
 public class Controller {
 

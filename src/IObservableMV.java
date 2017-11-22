@@ -1,4 +1,4 @@
-package space.toolreaz;
+package common;
 
 public interface IObservableMV {
 	public void SetListenerMV(IObserverMV observer);

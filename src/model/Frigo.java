@@ -1,8 +1,8 @@
-package space.toolreaz.model;
+package common.model;
 
 import java.util.ArrayList;
 
-import space.toolreaz.Packet;
+import common.Packet;
 
 public class Frigo implements IObservableFrigo{
 	public Frigo(int port, int consigne, ArrayList<String> contenu) {

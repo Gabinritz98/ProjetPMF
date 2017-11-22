@@ -1,4 +1,4 @@
-package space.toolreaz.model;
+package common.model;
 
 public interface IModel {
 	public Frigo getRawFrigo(int i);

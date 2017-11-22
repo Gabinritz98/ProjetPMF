@@ -1,4 +1,4 @@
-package space.toolreaz.controller;
+package common.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
