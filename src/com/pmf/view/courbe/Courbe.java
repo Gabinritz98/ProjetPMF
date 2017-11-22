@@ -1,4 +1,4 @@
-package view.courbe;
+package com.pmf.view.courbe;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,10 +27,8 @@ public class Courbe extends JPanel {
         else if(p.getX()>this.xMax)
             this.xMax=p.getX();
 
-        if(p.getY()<this.yMin)
-            this.yMin=p.getY();
-        else if(p.getY()>this.yMax)
-            this.yMax=p.getY();
+        yMin = 0;
+        yMax = 30;
 
         this.listePoints.add(p);
 
@@ -45,14 +43,24 @@ public class Courbe extends JPanel {
     public void paint(Graphics g){
         super.paint(g);
 
-        g.drawString("Température", 40,20);
+        g.drawString("Température", 40,30);
         g.drawString("Temps", 40, getHeight()-20);
+        for (int i=0; i<(yMax+1); i++) {
+            if (i==0) { g.drawString("" + i,15, 425); }
+            if (i==yMax) { g.drawString("" + i, 15, 45); }
+            /*(i==yMax/2) { g.drawString("" + i, 20, 235); }
+            if (i==yMax) { g.drawString("" + i,20, 45); }
+            if (i==20) { g.drawString("" + i,20, 172); }
+            if (i==25) { g.drawString("" + i,20, 108); } // + 63/64
+            if (i==28) { g.drawString("" + i,20, 70); }*/
+            else { g.drawString("" + i,15, (int) (425-(i*12.6))); }
+        }
         this.largeur=this.getWidth()-80;
         this.hauteur=this.getHeight()-80;
         this.left=40;
         this.top=40;
 
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
         g.fillRect(this.left, this.top, this.largeur, this.hauteur);
 
         g.setColor(Color.RED);

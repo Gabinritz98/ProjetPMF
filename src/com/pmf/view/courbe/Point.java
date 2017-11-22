@@ -1,4 +1,4 @@
-package view.courbe;
+package com.pmf.view.courbe;
 
 public class Point {
 

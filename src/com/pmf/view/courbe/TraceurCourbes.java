@@ -1,4 +1,4 @@
-package view.courbe;
+package com.pmf.view.courbe;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -19,8 +19,8 @@ public class TraceurCourbes extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        for (int i=0; i<100; i++) {
-            this.courbe.ajouterPoint(new Point(i*10,i*i - i*16));
+        for (int i=0; i<99999; i++) {
+            this.courbe.ajouterPoint(new Point(i*1, 13));
         }
 
         this.addWindowListener(new WindowAdapter(){

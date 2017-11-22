@@ -1,25 +1,16 @@
-package view;
+package com.pmf.view;
 
-import view.courbe.TraceurCourbes;
+import com.pmf.IObserverMV;
+import com.pmf.model.IObservableFrigo;
+import com.pmf.model.IObserverFrigo;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JSeparator;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+import java.awt.*;
 
-public class View extends JFrame {
+public class View extends JFrame implements IObserverFrigo{
 
     private JPanel contentPane;
     private int consigne = 0;
@@ -111,7 +102,7 @@ public class View extends JFrame {
 
         // VALEUR TEMPERATURE CONSIGNE
         JSpinner spinner_TempTarget = new JSpinner();
-        spinner_TempTarget.setModel(new SpinnerNumberModel(new Integer(10), null, null, new Integer(1)));
+        spinner_TempTarget.setModel(new SpinnerNumberModel(new Integer(10), new Integer(0), new Integer(30), new Integer(1)));
         spinner_TempTarget.setFont(new Font("Roboto", Font.PLAIN, 12));
         spinner_TempTarget.setBounds(406, 150, 40, 20);
         spinner_TempTarget.addChangeListener(new ChangeListener() {
@@ -160,5 +151,10 @@ public class View extends JFrame {
         });
         btn_Stop.setBounds(66, 205, 80, 40);
         contentPane.add(btn_Stop);
+    }
+
+    @Override
+    public void NotifyFrigo(IObservableFrigo observable) {
+
     }
 }

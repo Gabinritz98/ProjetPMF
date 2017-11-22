@@ -1,5 +1,7 @@
-import view.View;
-import view.courbe.TraceurCourbes;
+package com.pmf;
+
+import com.pmf.view.View;
+import com.pmf.view.courbe.TraceurCourbes;
 
 import java.awt.*;
 

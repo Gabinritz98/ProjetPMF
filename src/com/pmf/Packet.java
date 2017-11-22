@@ -1,4 +1,4 @@
-package packet;
+package com.pmf;
 
 public class Packet {
 	private int TempInterne,TempExterne,Consigne,Hygro;
