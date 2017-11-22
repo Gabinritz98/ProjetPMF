@@ -1,8 +1,9 @@
 package com.pmf.view;
 
+import com.pmf.IObservableMV;
 import com.pmf.IObserverMV;
-import com.pmf.model.IObservableFrigo;
-import com.pmf.model.IObserverFrigo;
+import com.pmf.model.Model;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -10,18 +11,29 @@ import javax.swing.event.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class View extends JFrame implements IObserverFrigo{
+public class View extends JFrame implements IObserverMV{
 
     private JPanel contentPane;
+
+    // temperature frigo
+    private float tempFrigo = 0;
+    public void setTempFrigo(float tempFrigo) { this.tempFrigo = tempFrigo; }
+    public float getTempFrigo() { return tempFrigo; }
+
+    // temperature ext
+    private float tempExt = 0;
+    public void setTempExt(float tempExt) { this.tempExt = tempExt; }
+    public float getTempExt() { return tempExt; }
+
+    // hygrometrie
+    private float hygro = 0;
+    public void setHygro(float hygro) { this.hygro = hygro; }
+    public float getHygro() { return hygro; }
+
+    // consigne
     private int consigne = 0;
-
-    public void setConsigne(int consigne) {
-        this.consigne = consigne;
-    }
-
-    public int getConsigne() {
-        return consigne;
-    }
+    public void setConsigne(int consigne) { this.consigne = consigne; }
+    public int getConsigne() { return consigne; }
 
     public View() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +46,7 @@ public class View extends JFrame implements IObserverFrigo{
         this.setTitle("Pimp My Fridge");
         this.setVisible(true);
 
+    // LABELS
         // LABEL TITLE
         JLabel lbl_Title = new JLabel("FRIDGE MANAGER");
         lbl_Title.setFont(new Font("Roboto", Font.PLAIN, 24));
@@ -63,35 +76,14 @@ public class View extends JFrame implements IObserverFrigo{
         // LABEL HUMIDITE
         JLabel lbl_Humid = new JLabel("Humidit\u00E9 dans le frigo");
         lbl_Humid.setFont(new Font("Roboto", Font.PLAIN, 14));
-        lbl_Humid.setBounds(250, 110, 140, 20);
+        lbl_Humid.setBounds(260, 110, 140, 20);
         contentPane.add(lbl_Humid);
 
         // LABEL TEMPERATURE CONSIGNE
         JLabel lbl_TempTarget = new JLabel("Temp\u00E9rature consigne");
         lbl_TempTarget.setFont(new Font("Roboto", Font.PLAIN, 14));
-        lbl_TempTarget.setBounds(250, 150, 140, 20);
+        lbl_TempTarget.setBounds(260, 150, 140, 20);
         contentPane.add(lbl_TempTarget);
-
-        // VALEUR TEMPERATURE FRIGO
-        JLabel lbl_TempFrigoVal = new JLabel("10\u00B0C");
-        lbl_TempFrigoVal.setForeground(Color.RED);
-        lbl_TempFrigoVal.setFont(new Font("Roboto", Font.BOLD, 16));
-        lbl_TempFrigoVal.setBounds(196, 113, 34, 14);
-        contentPane.add(lbl_TempFrigoVal);
-
-        // VALEUR TEMPERATURE EXTERIEUR
-        JLabel lbl_TempExtVal = new JLabel("10\u00B0C");
-        lbl_TempExtVal.setForeground(Color.RED);
-        lbl_TempExtVal.setFont(new Font("Roboto", Font.BOLD, 16));
-        lbl_TempExtVal.setBounds(196, 153, 34, 14);
-        contentPane.add(lbl_TempExtVal);
-
-        // VALEUR HUMIDITE
-        JLabel lbl_HumidVal = new JLabel("100%");
-        lbl_HumidVal.setForeground(Color.RED);
-        lbl_HumidVal.setFont(new Font("Roboto", Font.BOLD, 16));
-        lbl_HumidVal.setBounds(406, 112, 40, 14);
-        contentPane.add(lbl_HumidVal);
 
         // LABEL CONSIGNE
         JLabel lbl_TempTargetDeg = new JLabel("\u00B0C");
@@ -99,6 +91,43 @@ public class View extends JFrame implements IObserverFrigo{
         lbl_TempTargetDeg.setFont(new Font("Roboto", Font.BOLD, 16));
         lbl_TempTargetDeg.setBounds(450, 152, 16, 14);
         contentPane.add(lbl_TempTargetDeg);
+
+        // SEPARATEUR
+        JSeparator separator = new JSeparator();
+        separator.setForeground(Color.BLACK);
+        separator.setBackground(Color.BLACK);
+        separator.setBounds(0, 52, 512, 2);
+        contentPane.add(separator);
+
+
+    // VALEURS + ACTIONS
+        setTempFrigo(15);
+        setTempExt(15);
+        setHygro(50);
+
+        // VALEUR TEMPERATURE FRIGO
+        String tempFrigo = String.valueOf(getTempFrigo());
+        JLabel lbl_TempFrigoVal = new JLabel(tempFrigo + "\u00B0C");
+        lbl_TempFrigoVal.setForeground(Color.RED);
+        lbl_TempFrigoVal.setFont(new Font("Roboto", Font.BOLD, 16));
+        lbl_TempFrigoVal.setBounds(186, 113, 50, 14);
+        contentPane.add(lbl_TempFrigoVal);
+
+        // VALEUR TEMPERATURE EXTERIEUR
+        String tempExt = String.valueOf(getTempExt());
+        JLabel lbl_TempExtVal = new JLabel(tempExt + "\u00B0C");
+        lbl_TempExtVal.setForeground(Color.RED);
+        lbl_TempExtVal.setFont(new Font("Roboto", Font.BOLD, 16));
+        lbl_TempExtVal.setBounds(186, 153, 50, 14);
+        contentPane.add(lbl_TempExtVal);
+
+        // VALEUR HYGROMETRIE
+        String hygro = String.valueOf(getHygro());
+        JLabel lbl_Hygro = new JLabel(hygro + "%");
+        lbl_Hygro.setForeground(Color.RED);
+        lbl_Hygro.setFont(new Font("Roboto", Font.BOLD, 16));
+        lbl_Hygro.setBounds(406, 112, 50, 14);
+        contentPane.add(lbl_Hygro);
 
         // VALEUR TEMPERATURE CONSIGNE
         JSpinner spinner_TempTarget = new JSpinner();
@@ -118,13 +147,6 @@ public class View extends JFrame implements IObserverFrigo{
             }
         });
         contentPane.add(spinner_TempTarget);
-
-        // SEPARATEUR
-        JSeparator separator = new JSeparator();
-        separator.setForeground(Color.BLACK);
-        separator.setBackground(Color.BLACK);
-        separator.setBounds(0, 52, 512, 2);
-        contentPane.add(separator);
 
         // BOUTON ASSIGNATION TEMPERATURE CONSIGNE
         JButton btn_SetTarget = new JButton("ASSIGNER LA CONSIGNE");
@@ -154,7 +176,10 @@ public class View extends JFrame implements IObserverFrigo{
     }
 
     @Override
-    public void NotifyFrigo(IObservableFrigo observable) {
-
+    public void NotifyMV(IObservableMV observable) {
+        Model.getModelInstance().SetListenerMV(this);
+        this.setTempFrigo(((Model)observable).getRawFrigo(0).getTempInt());
+        this.setTempExt(((Model)observable).getRawFrigo(0).getTempExt());
+        this.setHygro(((Model)observable).getRawFrigo(0).getHygro());
     }
 }

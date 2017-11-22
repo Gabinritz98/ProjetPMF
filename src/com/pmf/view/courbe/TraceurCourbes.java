@@ -20,7 +20,7 @@ public class TraceurCourbes extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         for (int i=0; i<99999; i++) {
-            this.courbe.ajouterPoint(new Point(i*1, 13));
+            this.courbe.ajouterPoint(new Point(i*1, (i*0.1)+11));
         }
 
         this.addWindowListener(new WindowAdapter(){

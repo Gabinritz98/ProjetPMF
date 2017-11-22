@@ -1,6 +1,8 @@
 package com.pmf.model;
 
-public interface IModel {
+import com.pmf.IObservableMV;
+
+public interface IModel extends IObservableMV {
 	public Frigo getRawFrigo(int i);
 	public void InitializeFrigo(int i);
 }

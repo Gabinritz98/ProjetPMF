@@ -34,7 +34,7 @@ public class Courbe extends JPanel {
 
         this.repaint();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -45,22 +45,22 @@ public class Courbe extends JPanel {
 
         g.drawString("Température", 40,30);
         g.drawString("Temps", 40, getHeight()-20);
+
+        double y0 = getHeight()-36;
+        double ymx = 45;
+        double yinterval = (y0-ymx)/yMax;
+
         for (int i=0; i<(yMax+1); i++) {
-            if (i==0) { g.drawString("" + i,15, 425); }
-            if (i==yMax) { g.drawString("" + i, 15, 45); }
-            /*(i==yMax/2) { g.drawString("" + i, 20, 235); }
-            if (i==yMax) { g.drawString("" + i,20, 45); }
-            if (i==20) { g.drawString("" + i,20, 172); }
-            if (i==25) { g.drawString("" + i,20, 108); } // + 63/64
-            if (i==28) { g.drawString("" + i,20, 70); }*/
-            else { g.drawString("" + i,15, (int) (425-(i*12.6))); }
+            if (i==0) { g.drawString("" + i,15, (int)y0); }
+            if (i==yMax) { g.drawString("" + i, 15, (int)ymx); }
+            else { g.drawString("" + i,15, (int)(y0 -(i*yinterval))); }
         }
         this.largeur=this.getWidth()-80;
         this.hauteur=this.getHeight()-80;
         this.left=40;
         this.top=40;
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.fillRect(this.left, this.top, this.largeur, this.hauteur);
 
         g.setColor(Color.RED);

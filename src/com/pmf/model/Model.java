@@ -4,7 +4,7 @@ import com.pmf.IObservableMV;
 import com.pmf.IObserverMV;
 import java.util.ArrayList;
 
-public class Model {
+public class Model implements IModel {
     private static Model modelInstance;
 
     public static Model getModelInstance() {
