@@ -17,11 +17,11 @@ public class Model implements IObservableMV, IObserverFrigo, IModel {
     }
     
     private Model() {
-        InitializeFrigo(4);
+        InitializeFrigo(4, 0);
     }
     
-    public void InitializeFrigo(int port) {
-    	frigo = new Frigo(port, new ArrayList<String>());
+    public void InitializeFrigo(int port, int consigneInitiale) {
+    	frigo = new Frigo(port, consigneInitiale, new ArrayList<String>());
     	frigo.SetListenerFrigo(this);
     }
     

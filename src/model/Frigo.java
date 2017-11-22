@@ -5,12 +5,20 @@ import java.util.ArrayList;
 import space.toolreaz.Packet;
 
 public class Frigo implements IObservableFrigo{
-	public Frigo(int consigne, ArrayList<String> contenu) {
+	public Frigo(int port, int consigne, ArrayList<String> contenu) {
 		Consigne = consigne;
 		Contenu = contenu;
+		this.Port = port;
 	}
+	
+	public Packet getCommandPacket() {
+		Packet ret = Packet.getPacket("C"+Consigne);
+		return ret;
+	}
+	
 	private ArrayList<Packet> PacketHistory = new ArrayList<Packet>();
-	private int TempExt, TempInt, Hygro, Consigne;
+	private double TempExt, TempInt, Hygro, Consigne;
+	private int Port;
 	private ArrayList<String> Contenu = new ArrayList<String>();
 	public void AddRecievedData(Packet p) {
 		PacketHistory.add(p);
@@ -23,37 +31,37 @@ public class Frigo implements IObservableFrigo{
 	public ArrayList<Packet> GetRecievedDataHistory() {
 		return (ArrayList<Packet>)PacketHistory.clone();
 	}
-	public int getTempExt() {
+	public double getTempExt() {
 		return TempExt;
 	}
-	private void setTempExt(int tempExt) {
+	private void setTempExt(double tempExt) {
 		if(tempExt!=TempExt) {
 			frigoObserver.NotifyFrigo(this);
 		}
 		TempExt = tempExt;
 	}
-	public int getTempInt() {
+	public double getTempInt() {
 		return TempInt;
 	}
-	private void setTempInt(int tempInt) {
+	private void setTempInt(double tempInt) {
 		if(tempInt!=TempInt) {
 			frigoObserver.NotifyFrigo(this);
 		}
 		TempInt = tempInt;
 	}
-	public int getHygro() {
+	public double getHygro() {
 		return Hygro;
 	}
-	private void setHygro(int hygro) {
+	private void setHygro(double hygro) {
 		if(hygro!=Hygro) {
 			frigoObserver.NotifyFrigo(this);
 		}
 		Hygro = hygro;
 	}
-	public int getConsigne() {
+	public double getConsigne() {
 		return Consigne;
 	}
-	private void setConsigne(int consigne) {
+	private void setConsigne(double consigne) {
 		if(consigne!=Consigne) {
 			frigoObserver.NotifyFrigo(this);
 		}
@@ -88,6 +96,9 @@ public class Frigo implements IObservableFrigo{
 	}
 	public void RemoveListenerFrigo() {
 		frigoObserver = null;
-		
+	}
+
+	public int getPort() {
+		return Port;
 	}
 }

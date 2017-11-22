@@ -28,35 +28,35 @@ public class Packet {
 		return "I"+TempInterne+"dC"+Consigne+"dE"+TempExterne+"dH"+Hygro;
 	}
 
-	public int getTempInterne() {
-		return TempInterne;
+	public double getTempInterne() {
+		return (double)TempInterne/10;
 	}
 
-	public void setTempInterne(int tempInterne) {
-		TempInterne = tempInterne;
+	public void setTempInterne(double tempInterne) {
+		TempInterne = (int)(tempInterne*10);
 	}
 
-	public int getTempExterne() {
-		return TempExterne;
+	public double getTempExterne() {
+		return (double)TempExterne/10;
 	}
 
-	public void setTempExterne(int tempExterne) {
-		TempExterne = tempExterne;
+	public void setTempExterne(double tempExterne) {
+		TempExterne = (int)(tempExterne/10);
 	}
 
-	public int getConsigne() {
-		return Consigne;
+	public double getConsigne() {
+		return (double)Consigne/10;
 	}
 
-	public void setConsigne(int consigne) {
-		Consigne = consigne;
+	public void setConsigne(double consigne) {
+		Consigne = (int)(consigne/10);
 	}
 
-	public int getHygro() {
-		return Hygro;
+	public double getHygro() {
+		return (double)Hygro/10;
 	}
 
-	public void setHygro(int hygro) {
-		Hygro = hygro;
+	public void setHygro(double hygro) {
+		Hygro = (int)hygro;
 	}
 }
