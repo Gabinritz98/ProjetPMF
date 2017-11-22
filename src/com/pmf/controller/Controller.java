@@ -1,30 +1,28 @@
-package com.pmf.controller;
+package common.controller;
 
-import com.pmf.model.Model;
-import com.pmf.view.View;
+import common.IFrigoSerialListener;
+import common.IModel;
 
 public class Controller {
 
     private static Controller controllerInstance;
-    private View view;
-    private Model model;
-
+    
     public static Controller getControllerInstance() {
         if(controllerInstance == null) {
             controllerInstance = new Controller();
         }
         return controllerInstance;
     }
+    
+    private IModel model;
 
-    public void setView(View view) {
-        this.view = view;
-    }
+    public void setModel(IModel model) {
+		this.model = model;
+	}
 
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
-    public void init() {
-
+	public void init() {
+		IFrigoSerialListener frigo = model.getRawFrigo(0);
+		Trigger t = new Trigger(frigo);
+		t.TriggerStart(1000);
     }
 }

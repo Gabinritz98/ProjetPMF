@@ -1,4 +1,4 @@
-package com.pmf.view.courbe;
+package common.view.courbe;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -6,7 +6,11 @@ import java.awt.event.WindowEvent;
 
 public class TraceurCourbes extends JFrame {
 
-    private Courbe courbe;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1324861075051219917L;
+	private Courbe courbe;
 
     public TraceurCourbes(){
         super("Courbe de température");

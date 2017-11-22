@@ -1,4 +1,4 @@
-package com.pmf.view.courbe;
+package common.view.courbe;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,11 @@ import java.util.*;
 
 public class Courbe extends JPanel {
 
-    private Vector<Point> listePoints=new Vector<Point>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7124410704352087113L;
+	private Vector<Point> listePoints=new Vector<Point>();
     private double xMin=Double.MAX_VALUE;
     private double yMin=Double.MAX_VALUE;
     private double xMax=Double.MIN_VALUE;

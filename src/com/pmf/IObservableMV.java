@@ -1,4 +1,4 @@
-package com.pmf;
+package common;
 
 public interface IObservableMV {
 	public void SetListenerMV(IObserverMV observer);

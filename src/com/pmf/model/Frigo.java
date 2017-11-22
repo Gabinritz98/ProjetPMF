@@ -1,16 +1,38 @@
-package com.pmf.model;
+package common.model;
 
 import java.util.ArrayList;
-import com.pmf.Packet;
 
-public class Frigo implements IObservableFrigo{
-	public Frigo(int consigne, ArrayList<String> contenu) {
+import common.IFrigo;
+import common.IFrigoSerialListener;
+import common.Packet;
+
+public class Frigo implements IObservableFrigo, IFrigo, IFrigoSerialListener{
+	public Frigo(int port, int consigne, ArrayList<String> contenu) {
 		Consigne = consigne;
 		Contenu = contenu;
+		this.Port = port;
 	}
+	
+	/* (non-Javadoc)
+	 * @see common.model.IFrigoSerialListener#getCommandPacket()
+	 */
+	@Override
+	public Packet getCommandPacket() {
+		Packet ret = Packet.getPacket("C"+Consigne);
+		return ret;
+	}
+	
 	private ArrayList<Packet> PacketHistory = new ArrayList<Packet>();
-	private int TempExt, TempInt, Hygro, Consigne;
+	private double TempExt, TempInt, Hygro, Consigne;
+	private int Port;
 	private ArrayList<String> Contenu = new ArrayList<String>();
+	/* (non-Javadoc)
+	 * @see common.model.IFrigoSerialListener#AddRecievedData(common.Packet)
+	 */
+	/* (non-Javadoc)
+	 * @see common.model.IFrigoSerialListener#AddRecievedData(common.Packet)
+	 */
+	@Override
 	public void AddRecievedData(Packet p) {
 		PacketHistory.add(p);
 		this.setTempInt(p.getTempInterne());
@@ -18,63 +40,108 @@ public class Frigo implements IObservableFrigo{
 		this.setHygro(p.getHygro());
 		this.setTempExt(p.getTempExterne());
 	}
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#GetRecievedDataHistory()
+	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public ArrayList<Packet> GetRecievedDataHistory() {
 		return (ArrayList<Packet>)PacketHistory.clone();
 	}
-	public int getTempExt() {
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#getTempExt()
+	 */
+	@Override
+	public double getTempExt() {
 		return TempExt;
 	}
-	private void setTempExt(int tempExt) {
+	private void setTempExt(double tempExt) {
 		if(tempExt!=TempExt) {
 			frigoObserver.NotifyFrigo(this);
 		}
 		TempExt = tempExt;
 	}
-	public int getTempInt() {
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#getTempInt()
+	 */
+	@Override
+	public double getTempInt() {
 		return TempInt;
 	}
-	private void setTempInt(int tempInt) {
+	private void setTempInt(double tempInt) {
 		if(tempInt!=TempInt) {
 			frigoObserver.NotifyFrigo(this);
 		}
 		TempInt = tempInt;
 	}
-	public int getHygro() {
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#getHygro()
+	 */
+	@Override
+	public double getHygro() {
 		return Hygro;
 	}
-	private void setHygro(int hygro) {
+	private void setHygro(double hygro) {
 		if(hygro!=Hygro) {
 			frigoObserver.NotifyFrigo(this);
 		}
 		Hygro = hygro;
 	}
-	public int getConsigne() {
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#getConsigne()
+	 */
+	@Override
+	public double getConsigne() {
 		return Consigne;
 	}
-	private void setConsigne(int consigne) {
+	@Override
+	public void setConsigne(double consigne) {
 		if(consigne!=Consigne) {
 			frigoObserver.NotifyFrigo(this);
 		}
 		Consigne = consigne;
 	}
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#getContenu()
+	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public ArrayList<String> getContenu() {
 		return (ArrayList<String>)Contenu.clone();
 	}
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#AddContenu(java.lang.String)
+	 */
+	@Override
 	public void AddContenu(String contenu) {
 		Contenu.add(contenu);
 	}
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#RemoveContenu(java.lang.String)
+	 */
+	@Override
 	public void RemoveContenu(String contenu) {
 		Contenu.remove(contenu);
 	}
 	
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#isTooHot()
+	 */
+	@Override
 	public Boolean isTooHot() {
 		return TempInt>Consigne;
 	}
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#isTooCold()
+	 */
+	@Override
 	public Boolean isTooCold() {
 		return TempInt<Consigne;
 	}
+	/* (non-Javadoc)
+	 * @see common.model.IFrigo#isPossible()
+	 */
+	@Override
 	public Boolean isPossible() {
 		return Consigne<TempExt;
 	}
@@ -87,6 +154,13 @@ public class Frigo implements IObservableFrigo{
 	}
 	public void RemoveListenerFrigo() {
 		frigoObserver = null;
-		
+	}
+
+	/* (non-Javadoc)
+	 * @see common.model.IFrigoSerialListener#getPort()
+	 */
+	@Override
+	public int getPort() {
+		return Port;
 	}
 }
